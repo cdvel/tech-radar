@@ -48,10 +48,10 @@ function radar_visualization(config) {
   ];
 
   const rings = [
-    { radius: 130, fill: '#bcbcbc'},
-    { radius: 220, fill: '#cdcdcd' },
-    { radius: 310, fill: '#dedede' },
-    { radius: 400, fill: '#efefef' }
+    { radius: 160, fill: '#bcbcbc'},
+    { radius: 240, fill: '#cdcdcd' },
+    { radius: 300, fill: '#dedede' },
+    { radius: 350, fill: '#efefef' }
   ];
 
   const title_offset =
@@ -61,10 +61,10 @@ function radar_visualization(config) {
     { x: -675, y: 420 };
 
   const legend_offset = [
-    { x: 450, y: 90 },
-    { x: -675, y: 90 },
-    { x: -675, y: -310 },
-    { x: 450, y: -310 }
+    { x: 380, y: 70 },
+    { x: -550, y: 70 },
+    { x: -550, y: -410 },
+    { x: 380, y: -410 }
   ];
 
   function polar(cartesian) {
@@ -150,7 +150,7 @@ function radar_visualization(config) {
     entry.x = point.x;
     entry.y = point.y;
     entry.color = entry.active || config.print_layout ?
-      config.rings[entry.ring].color : config.colors.inactive;
+      config.quadrants[entry.quadrant].color : config.colors.inactive;
   }
 
   // partition entries according to segments
@@ -257,12 +257,42 @@ function radar_visualization(config) {
   function legend_transform(quadrant, ring, index=null) {
     var dx = ring < 2 ? 0 : 120;
     var dy = (index == null ? -16 : index * 12);
+
+    off = 20;
+
     if (ring % 2 === 1) {
-      dy = dy + 36 + segmented[quadrant][ring-1].length * 12;
+      dy = dy + off + segmented[quadrant][ring-1].length * 12;
     }
+
+    //adopt=0 trial=1 assess=2 hold=3
+    if (ring == 2){
+      dy = dy + off*2 + (segmented[quadrant][ring-2].length + segmented[quadrant][ring-1].length) * 12;
+    }
+
+    extra = 0;
+
+    //hold
+    if (ring == 3){
+
+      dy = dy + (segmented[quadrant][ring-3].length + segmented[quadrant][ring-2].length + segmented[quadrant][ring-1].length) * 12;
+
+      if (quadrant == 1){
+        extra = 1.5 * off
+      }
+
+      if (quadrant == 2){
+        extra =  -off*2.5
+      }
+
+      if(quadrant == 3){
+        extra = -off
+      }
+
+    }
+
     return translate(
-      legend_offset[quadrant].x + dx,
-      legend_offset[quadrant].y + dy
+      legend_offset[quadrant].x + 0,
+      legend_offset[quadrant].y + dy + extra
     );
   }
 
@@ -276,27 +306,28 @@ function radar_visualization(config) {
     //   .style("font-size", "28");
 
     // footer
-    radar.append("text")
-      .attr("transform", translate(footer_offset.x, footer_offset.y))
-      .text("▲ moved up     ▼ moved down")
-      .attr("xml:space", "preserve")
-      .style("font-size", "10");
+    // radar.append("text")
+    //   .attr("transform", translate(footer_offset.x, footer_offset.y))
+    //   .text("▲ moved up     ▼ moved down")
+    //   .attr("xml:space", "preserve")
+    //   .style("font-size", "10");
 
     // legend
     var legend = radar.append("g");
     for (var quadrant = 0; quadrant < 4; quadrant++) {
       legend.append("text")
+        .style("fill", config.quadrants[quadrant].color)
         .attr("transform", translate(
           legend_offset[quadrant].x,
           legend_offset[quadrant].y - 45
         ))
         .text(config.quadrants[quadrant].name)
-        .style("font-size", "18");
+        .style("font-size", "16")
       for (var ring = 0; ring < 4; ring++) {
         legend.append("text")
           .attr("transform", legend_transform(quadrant, ring))
           .text(config.rings[ring].name)
-          .style("font-size", "12")
+          .style("font-size", "10")
           .style("font-weight", "bold");
         legend.selectAll(".legend" + quadrant + ring)
           .data(segmented[quadrant][ring])
@@ -306,7 +337,7 @@ function radar_visualization(config) {
               .attr("class", "legend" + quadrant + ring)
               .attr("id", function(d, i) { return "legendItem" + d.id; })
               .text(function(d, i) { return d.id + ". " + d.label; })
-              .style("font-size", "11")
+              .style("font-size", "10")
               .on("mouseover", function(d) { showBubble(d); highlightLegendItem(d); })
               .on("mouseout", function(d) { hideBubble(d); unhighlightLegendItem(d); });
       }
