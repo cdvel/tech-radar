@@ -395,11 +395,11 @@ function radar_visualization(config) {
     // blip shape
     if (d.moved > 0) {
       blip.append("path")
-        .attr("d", "M -11,5 11,5 0,-13 z") // triangle pointing up
+        .attr("d", "M -12,6 12,6 0,-15 z") // triangle pointing up
         .style("fill", d.color);
     } else if (d.moved < 0) {
       blip.append("path")
-        .attr("d", "M -11,-5 11,-5 0,13 z") // triangle pointing down
+        .attr("d", "M -12,-6 12,-6 0,14 z") // triangle pointing down
         .style("fill", d.color);
     } else {
       blip.append("circle")
@@ -415,7 +415,6 @@ function radar_visualization(config) {
         .attr("y", 3)
         .attr("text-anchor", "middle")
         .style("fill", "#fefefe")
-        .style("font-weight", "bold")
         .style("font-size", function(d) { return blip_text.length > 2 ? "11" : "12"; })
         .style("pointer-events", "none")
         .style("user-select", "none");
