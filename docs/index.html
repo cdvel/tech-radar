@@ -14,12 +14,10 @@
     source = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR9kaD9zZ4ww3yL0gEgt5cV-JS1xTqqodpXAG06vUX6MjwDuJIyid7n-bL-zJ1mHqScZ0PbAr0bXEeg/pub?gid=280534549&single=true&output=csv';
 
     dataset = d3.csv(source).then(function(data) {
-
         return data;
-
     });
 
-    var data = dataset.then(function(value) {
+    var entries = dataset.then(function(value) {
 
         return Promise.all(value.map(function(d) {
 
@@ -38,7 +36,7 @@
     });
 
 
-    data.then(function(dx) {
+    entries.then(function(dx) {
         params = {
             svg_id: "radar",
             width: 1450,
@@ -72,21 +70,7 @@
     });
 
     </script>
-    <script>
-    (function(i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r;
-        i[r] = i[r] || function() {
-            (i[r].q = i[r].q || []).push(arguments)
-        }, i[r].l = 1 * new Date();
-        a = s.createElement(o),
-            m = s.getElementsByTagName(o)[0];
-        a.async = 1;
-        a.src = g;
-        m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-    ga('create', 'UA-105375141-2', 'auto');
-    ga('send', 'pageview');
-    </script>
+
 </body>
 
 </html>

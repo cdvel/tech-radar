@@ -270,10 +270,10 @@ function radar_visualization(config) {
   if (config.print_layout) {
 
     // title
-    radar.append("text")
-      .attr("transform", translate(title_offset.x, title_offset.y))
-      .text(config.title)
-      .style("font-size", "28");
+    // radar.append("text")
+    //   .attr("transform", translate(title_offset.x, title_offset.y))
+    //   .text(config.title)
+    //   .style("font-size", "28");
 
     // footer
     radar.append("text")
