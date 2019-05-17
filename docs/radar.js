@@ -61,10 +61,10 @@ function radar_visualization(config) {
     { x: -675, y: 420 };
 
   const legend_offset = [
-    { x: 380, y: 70 },
-    { x: -550, y: 70 },
-    { x: -550, y: -410 },
-    { x: 380, y: -410 }
+    { x: 280, y: -770 },
+    { x: -350, y: -770 },
+    { x: -150, y: -770 }, //techniques
+    { x: 80, y: -770 }
   ];
 
   function polar(cartesian) {
@@ -322,7 +322,7 @@ function radar_visualization(config) {
           legend_offset[quadrant].y - 45
         ))
         .text(config.quadrants[quadrant].name)
-        .style("font-size", "16")
+        .style("font-size", "14")
       for (var ring = 0; ring < 4; ring++) {
         legend.append("text")
           .attr("transform", legend_transform(quadrant, ring))
@@ -337,7 +337,8 @@ function radar_visualization(config) {
               .attr("class", "legend" + quadrant + ring)
               .attr("id", function(d, i) { return "legendItem" + d.id; })
               .text(function(d, i) { return d.id + ". " + d.label; })
-              .style("font-size", "10")
+              .style("font-size", "11")
+              .style("cursor", "pointer")
               .on("mouseover", function(d) { showBubble(d); highlightLegendItem(d); })
               .on("mouseout", function(d) { hideBubble(d); unhighlightLegendItem(d); });
       }
@@ -361,11 +362,11 @@ function radar_visualization(config) {
     .attr("ry", 4)
     .style("fill", "#333");
   bubble.append("text")
-    .style("font-size", "12px")
+    .style("font-size", "16px")
     .style("fill", "#fff");
-  // bubble.append("path")
-  //   .attr("d", "M 0,0 10,0 5,8 z")
-  //   .style("fill", "#333");
+  bubble.append("path")
+    .attr("d", "M 0,0 10,0 5,8 z")
+    .style("fill", "#333");
 
   function showBubble(d) {
     if (d.active || config.print_layout) {
