@@ -281,7 +281,7 @@ function radar_visualization(config) {
       }
 
       if (quadrant == 2){
-        extra =  -off*2.5
+        extra =  -off*2
       }
 
       if(quadrant == 3){
