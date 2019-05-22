@@ -61,10 +61,10 @@ function radar_visualization(config) {
     { x: -675, y: 420 };
 
   const legend_offset = [
-    { x: 280, y: -770 },
+    { x: 280, y: -770 },   
+    { x: 80, y: -770 },
     { x: -350, y: -770 },
-    { x: -150, y: -770 }, //techniques
-    { x: 80, y: -770 }
+    { x: -150, y: -770 } //techniques
   ];
 
   function polar(cartesian) {
@@ -276,17 +276,17 @@ function radar_visualization(config) {
 
       dy = dy + (segmented[quadrant][ring-3].length + segmented[quadrant][ring-2].length + segmented[quadrant][ring-1].length) * 12;
 
-      if (quadrant == 1){
-        extra = 1.5 * off
-      }
+      // if (quadrant == 1){
+      //   extra = 1.5 * off
+      // }
 
       if (quadrant == 2){
-        extra =  -off*2
+        extra =  off;
       }
 
-      if(quadrant == 3){
-        extra = -off
-      }
+      // if(quadrant == 3){
+      //   extra = -off
+      // }
 
     }
 
