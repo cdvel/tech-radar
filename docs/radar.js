@@ -201,7 +201,7 @@ function radar_visualization(config) {
     svg.attr("viewBox", viewbox(config.zoomed_quadrant));
   } else {
     radar.attr("transform", translate(config.width / 2, config.height / 2));
-    radar.attr("className", "radar-g");
+    radar.attr("class", "radar-g");
   }
 
   var grid = radar.append("g");
