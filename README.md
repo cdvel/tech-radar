@@ -14,7 +14,7 @@ Adapt to your own datasource by updating `source` in [index.html](blob/master/do
 label, quadrant, description, ring, active, moved, link
 ```
 
-![](https://res.cloudinary.com/cdvel/image/url2png/https://cdvel.github.io/tech-radar)
+![](https://res.cloudinary.com/cdvel/image/url2png/s--AVTGkgPS--/https://cdvel.github.io/tech-radar/)
 
 ## Development
 
